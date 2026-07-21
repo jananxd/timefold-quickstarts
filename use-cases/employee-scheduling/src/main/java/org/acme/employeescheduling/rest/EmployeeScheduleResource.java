@@ -160,7 +160,9 @@ public class EmployeeScheduleResource {
             @Parameter(description = "The job ID returned by the POST method.") @PathParam("jobId") String jobId) {
         // TODO: Replace with .terminateEarlyAndWait(... [, timeout]); see https://github.com/TimefoldAI/timefold-solver/issues/77
         solverManager.terminateEarly(jobId);
-        return getEmployeeSchedule(jobId);
+        EmployeeSchedule schedule = getEmployeeSchedule(jobId);
+        jobIdToJob.remove(jobId);
+        return schedule;
     }
 
     @Operation(
